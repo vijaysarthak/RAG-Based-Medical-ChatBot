@@ -10,7 +10,7 @@ The system ingests medical PDFs, converts them into vector embeddings, stores th
 - 📄 PDF ingestion from `/data` folder  
 - ✂️ Text chunking using RecursiveCharacterTextSplitter  
 - 🔍 Semantic Search using Pinecone  
-- 🤖 GPT-4o as LLM backend  
+- 🤖 GPT-OSS-120b as LLM backend  
 - 🧠 Retrieval-Augmented Generation  
 - 💬 Flask-based chat UI  
 - 🔑 Environment variable-based secret management  
