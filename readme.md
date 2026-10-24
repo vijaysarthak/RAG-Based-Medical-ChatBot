@@ -66,7 +66,7 @@ Stores vector embeddings in Pinecone Serverless.
 Top-k similarity search (k=3).
 
 ### 7️⃣ Build Chat Model  
-Uses GPT-4o.
+Uses GPT-OSS.
 
 ### 8️⃣ Build RAG Chain  
 Retriever + system prompt + document stuffing + GPT output.
