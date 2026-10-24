@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Medical Reference Assistant</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&display=swap">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+    <div class="app">
+
+        <header class="topbar">
+            <div class="topbar-inner">
+                <div class="brand">
+                    <span class="brand-tile" aria-hidden="true">
+                        <!-- heartbeat mark -->
+                        <svg viewBox="0 0 32 32">
+                            <polyline points="3,17 10,17 13,10 17,24 20,14 22,17 29,17" />
+                        </svg>
+                    </span>
+                    <div>
+                        <h1>Medical Reference Assistant</h1>
+                        <p>Answers drawn only from 5 clinical texts</p>
+                    </div>
+                </div>
+                <button id="new-chat" class="ghost-btn" type="button" hidden>
+                    New<span class="wide-only"> conversation</span>
+                </button>
+            </div>
+        </header>
+
+        <main id="chat" class="chat">
+            <div class="sheet">
+
+                <section id="welcome" class="welcome">
+                    <!-- Drawn once when the page loads -->
+                    <svg class="ecg-trace" viewBox="0 0 600 60" preserveAspectRatio="none" aria-hidden="true">
+                        <polyline points="0,34 120,34 135,34 145,26 155,34 175,34 183,40 192,6 202,52 210,34 232,34 248,24 266,34 600,34" />
+                    </svg>
+
+                    <h2>Ask a clinical question</h2>
+                    <p class="lede">
+                        Every answer is written from passages in the library below and shows the
+                        passages it used. If the library doesn't cover your question, the assistant says so.
+                    </p>
+
+                    <ul class="library">
+                        <li>
+                            <button class="book-card" data-book="diabetes" type="button" data-question="What is diabetes?">
+                                <span class="book-title">Diabetes</span>
+                                <span class="sample">What is diabetes?</span>
+                            </button>
+                        </li>
+                        <li>
+                            <button class="book-card" data-book="gastro" type="button" data-question="What is Charcot's triad?">
+                                <span class="book-title">First Principles of Gastroenterology and Hepatology</span>
+                                <span class="sample">What is Charcot's triad?</span>
+                            </button>
+                        </li>
+                        <li>
+                            <button class="book-card" data-book="treatment" type="button" data-question="How should P. vivax malaria be treated?">
+                                <span class="book-title">Standard Treatment Protocol for Medical Officers</span>
+                                <span class="sample">How should P. vivax malaria be treated?</span>
+                            </button>
+                        </li>
+                        <li>
+                            <button class="book-card" data-book="allergen" type="button" data-question="What color codes are used for allergen immunotherapy vials?">
+                                <span class="book-title">Allergen Immunotherapy Extract Preparation Guide</span>
+                                <span class="sample">What color codes are used for allergen immunotherapy vials?</span>
+                            </button>
+                        </li>
+                        <li>
+                            <button class="book-card" data-book="clinical" type="button" data-question="What does a complete clinical diagnosis include?">
+                                <span class="book-title">Clinical Medicine: A System of Diagnosis</span>
+                                <span class="sample">What does a complete clinical diagnosis include?</span>
+                            </button>
+                        </li>
+                    </ul>
+                </section>
+
+                <!-- Questions and answers are added here by script.js -->
+                <div id="entries" aria-live="polite"></div>
+
+            </div>
+        </main>
+
+        <footer class="composer-wrap">
+            <form id="composer" class="composer">
+                <label for="question" class="visually-hidden">Your question</label>
+                <textarea id="question" name="msg" rows="1" autocomplete="off"
+                          placeholder="Type a clinical question"></textarea>
+                <button id="send" class="send-btn" type="submit" aria-label="Ask">
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M12 19V5M5 12l7-7 7 7" />
+                    </svg>
+                </button>
+            </form>
+            <p class="disclaimer">
+                For study and reference only. It does not replace advice from a qualified doctor.
+            </p>
+        </footer>
+
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
