@@ -6,6 +6,7 @@ from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_core.documents import Document
 from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_groq import ChatGroq
+from langchain_google_genai import ChatGoogleGenerativeAI
 
 
 # Extract data from the PDF files
@@ -42,16 +43,32 @@ def download_hugging_face_embeddings():
 
 
 # Chat LLM served by Groq's free API (nothing is downloaded or run on your machine)
-def load_llm(model_id=None, temperature=0.0):
-    model_id = model_id or os.getenv("GROQ_MODEL")
-    if not os.getenv("GROQ_API_KEY"):
-        raise RuntimeError("GROQ_API_KEY is missing. Add it to your .env file.")
-    if not model_id:
-        raise RuntimeError("GROQ_MODEL is missing. Add the exact Groq model ID to your .env file.")
 
-    return ChatGroq(
+# Chat LLM served by Google's Gemini API (nothing is downloaded or run on your machine)
+def load_llm(model_id=None, temperature=1.0):
+    model_id = model_id or os.getenv("GEMINI_MODEL")
+    if not os.getenv("GEMINI_API_KEY"):
+        raise RuntimeError("GEMINI_API_KEY is missing. Add it to your .env file.")
+    if not model_id:
+        raise RuntimeError("GEMINI_MODEL is missing. Add the exact Gemini model ID to your .env file.")
+
+    return ChatGoogleGenerativeAI(
         model=model_id,
-        temperature=temperature,    # 0 = same question -> same answer
-        reasoning_format="hidden",  # Qwen 3 'thinks' first; return only the final answer
+        google_api_key=os.getenv("GEMINI_API_KEY"),
+        temperature=temperature,    # Google recommends 1.0 for Gemini 3 models
         max_retries=5,              # wait and retry when the free-tier rate limit is hit
     )
+
+# def load_llm(model_id=None, temperature=0.0):
+#     model_id = model_id or os.getenv("GROQ_MODEL")
+#     if not os.getenv("GROQ_API_KEY"):
+#         raise RuntimeError("GROQ_API_KEY is missing. Add it to your .env file.")
+#     if not model_id:
+#         raise RuntimeError("GROQ_MODEL is missing. Add the exact Groq model ID to your .env file.")
+
+#     return ChatGroq(
+#         model=model_id,
+#         temperature=temperature,    # 0 = same question -> same answer
+#         reasoning_format="hidden",  # Qwen 3 'thinks' first; return only the final answer
+#         max_retries=5,              # wait and retry when the free-tier rate limit is hit
+#     )
